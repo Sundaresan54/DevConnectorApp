@@ -7,6 +7,8 @@ const {
     check,
     validationResult
 } = require('express-validator');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 router.post('/', [
         check('name', 'Name is required')
@@ -33,7 +35,7 @@ router.post('/', [
             password
         } = req.body;
         try {
-            let user = User.findOne({
+            let user = await User.findOne({
                 email
             });
             if (user) {
@@ -59,8 +61,25 @@ router.post('/', [
             user.password = await bcrypt.hash(password, salt);
 
             await user.save()
-            res.send("duser registered");
+            const payload = {
+                user: {
+                    id: user.id
+                }
+            }
 
+            jwt.sign(
+                payload,
+                config.get('jwtToken'), {
+                    expiresIn: 3600
+                },
+                (err, token) => {
+                    if (err) throw err;
+                    res.json({
+                        token: token
+                    });
+                }
+
+            )
         } catch (err) {
             console.error(err.message)
             res.status(500).send("server error")
