@@ -11,17 +11,17 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 router.post('/', [
-        check('name', 'Name is required')
+    check('userName', 'Name is required')
         .not()
         .isEmpty(),
-        check('email', 'Please include valid email')
+    check('email', 'Please include valid email')
         .isEmail(),
-        check('password', 'Please enter the password min 6 or more')
+    check('password', 'Please enter the password min 6 or more')
         .isLength({
             min: 6
         })
 
-    ],
+],
     async (req, res) => {
         const error = validationResult(req);
         if (!error.isEmpty()) {
@@ -30,7 +30,7 @@ router.post('/', [
             });
         }
         const {
-            name,
+            userName,
             email,
             password
         } = req.body;
@@ -52,7 +52,7 @@ router.post('/', [
             })
 
             user = new User({
-                name,
+                userName,
                 email,
                 password,
                 avatar
