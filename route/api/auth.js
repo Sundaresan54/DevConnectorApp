@@ -21,12 +21,11 @@ router.get('/', auth, async (req, res) => {
     }
 })
 router.post('/', [
-        check('email', 'Please include valid email')
+    check('email', 'Please include valid email')
         .isEmail(),
-        check('password', 'please enter valid password')
+    check('password', 'please enter valid password')
         .exists()
-
-    ],
+],
     async (req, res) => {
         const error = validationResult(req);
         if (!error.isEmpty()) {

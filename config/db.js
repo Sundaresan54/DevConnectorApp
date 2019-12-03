@@ -2,18 +2,19 @@ const mongoose = require('mongoose');
 const config = require('config');
 
 const db = config.get('mongoURI');
+const robo3t = config.get('robo3t');
 
 
 const connectDb = async () => {
     try {
-        await mongoose.connect(db, {
+        await mongoose.connect(robo3t || db, {
             useNewUrlParser: true,
             useCreateIndex: true,
             useUnifiedTopology: true,
             useFindAndModify: false
         });
 
-        console.log("MongoDB connected...");
+        console.log("robo 3tMongoDB connected...");
     } catch (err) {
         console.error(err);
         process.exit(1)

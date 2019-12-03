@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from 'react'
-import axios from 'axios';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth'
+
 import { Link } from 'react-router-dom'
 
-const Login = () => {
+const Login = ({ login }) => {
 
     const [formData, setFormData] = useState({
         email: '',
@@ -10,6 +13,7 @@ const Login = () => {
     });
 
     const { email, password } = FormData;
+    console.log(email, password, "value getting")
     console.log(FormData, "name getting")
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -17,32 +21,8 @@ const Login = () => {
     }
     const onSubmit = async (e) => {
         e.preventDefault();
-        // if (formData.confrmPassword !== formData.password) {
-        //     console.log("password mismatch")
-        // } else {
-
         console.log(formData, "djhdugy")
-        // const newUser = {
-        //     userName,
-        //     email,
-        //     password
-        // }
-        // try {
-        //     const config = {
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'mode': 'no-cors'
-        //         }
-        //     };
-        //     const body = newUser;
-        //     const res = await axios.post('http://localhost:5002/api/users', body, config);
-        //     console.log(res.headers)
-        //     console.log(res);
-        // } catch (err) {
-        //     console.error(err.response.data)
-        // }
-
-        // }
+        login({ formData })
     }
     return (
         <Fragment>
@@ -71,7 +51,10 @@ const Login = () => {
                 </p>
             </section>
         </Fragment>
-    )
-}
+    );
+};
 
-export default Login
+Login.propTypes = {
+    login: PropTypes.func.isRequired,
+}
+export default connect(null, { login })(Login);

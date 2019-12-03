@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 router.post('/', [
-    check('userName', 'Name is required')
+    check('userName', 'userName is required')
         .not()
         .isEmpty(),
     check('email', 'Please include valid email')
