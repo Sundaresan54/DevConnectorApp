@@ -15,7 +15,6 @@ router.get('/', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
         res.json(user)
-        console.log(user, "password")
     } catch (err) {
         console.error(res.status(500).send('server error'))
     }
@@ -29,6 +28,7 @@ router.post('/', [
     async (req, res) => {
         const error = validationResult(req);
         if (!error.isEmpty()) {
+            console.log("------------>>>>>>>>")
             return res.status(400).json({
                 json: error.array()
             });
@@ -37,10 +37,12 @@ router.post('/', [
             email,
             password
         } = req.body;
+        console.log("email-----", email, password)
         try {
             let user = await User.findOne({
                 email
             });
+            console.log(user, "uuuuuuuuuu")
             if (!user) {
                 res.status(400).json({
                     error: [{

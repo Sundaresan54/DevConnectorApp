@@ -6,7 +6,8 @@ import {
     AUTH_ERROR,
     USER_LOADED,
     LOGIN_SUCCESS,
-    LOGIN_FAILURE
+    LOGIN_FAILURE,
+    LOGOUT
 
 } from '../actions/types'
 import { setAlert } from '../actions/alert'
@@ -90,7 +91,8 @@ export const login = ({ formData }) => async dispatch => {
         dispatch(loadUser())
     } catch (err) {
 
-        const errors = err.response.data.json;
+        const errors = err.response.data.error;
+        console.log(err.response.data.error, 'jajsajjlskslk')
 
         if (errors) {
             console.log("hsxhsxsxhbhb gsyxb")
@@ -100,4 +102,9 @@ export const login = ({ formData }) => async dispatch => {
             type: LOGIN_FAILURE
         })
     }
+}
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
+    });
 }
