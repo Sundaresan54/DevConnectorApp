@@ -14,6 +14,8 @@ import NavBar from '../src/components/layout/Navbar'
 import Landing from '../src/components/layout/Landing'
 import Register from '../src/components/auth/Register';
 import Login from '../src/components/auth/Login'
+import Dashboard from '../src/components/dashboard/Dashboard'
+import PrivateRoute from '../src/components/routing/Private'
 
 
 if (localStorage.token) {
@@ -26,13 +28,14 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Fragment>
+        <Fragment >
           <NavBar />
           <Route exact path='/' component={Landing} />
           <Alert />
-          <Switch>
+          <Switch >
             <Route path='/register' component={Register} />
             <Route path='/login' component={Login} />
+            <PrivateRoute path='/dashboard' component={Dashboard} />
           </Switch>
         </Fragment>
       </Router>

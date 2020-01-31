@@ -16,6 +16,7 @@ const request = require('request');
 // @desc     Get current users profile
 // @access   Private
 router.get('/me', auth, async (req, res) => {
+    console.log(req.user.id, "000000000")
     try {
         console.log("-------->>>>>>>")
         const profile = await Profile.findOne({
@@ -46,11 +47,11 @@ router.post('/', [
     auth,
     [
         check('status', 'Status is required')
-        .not()
-        .isEmpty(),
+            .not()
+            .isEmpty(),
         check('skills', 'Skills is required')
-        .not()
-        .isEmpty()
+            .not()
+            .isEmpty()
     ]
 ], async (req, res) => {
     const errors = validationResult(req);
@@ -99,10 +100,10 @@ router.post('/', [
         profile = await Profile.findOneAndUpdate({
             user: req.user.id
         }, {
-            $set: profileFields
-        }, {
-            new: true
-        });
+                $set: profileFields
+            }, {
+                new: true
+            });
     }
 
     profile = new Profile(profileFields);
@@ -212,14 +213,14 @@ router.delete('/', auth, async (req, res) => {
 router.put('/experience', [auth,
     [
         check('title', "title required")
-        .not()
-        .isEmpty(),
+            .not()
+            .isEmpty(),
         check('company', "company required")
-        .not()
-        .isEmpty(),
+            .not()
+            .isEmpty(),
         check('from', "from date required")
-        .not()
-        .isEmpty(),
+            .not()
+            .isEmpty(),
 
     ]
 ], async (req, res) => {
@@ -312,14 +313,14 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 router.put('/education', [auth,
     [
         check('school', "school required")
-        .not()
-        .isEmpty(),
+            .not()
+            .isEmpty(),
         check('degree', "degree required")
-        .not()
-        .isEmpty(),
+            .not()
+            .isEmpty(),
         check('fieldOfStudy', "fieldOfStudy required")
-        .not()
-        .isEmpty(),
+            .not()
+            .isEmpty(),
 
     ]
 ], async (req, res) => {
