@@ -7,6 +7,7 @@ import {
     USER_LOADED,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
+    CLEAR_PROFILE,
     LOGOUT
 
 } from '../actions/types'
@@ -92,8 +93,6 @@ export const login = ({ formData }) => async dispatch => {
     } catch (err) {
 
         const errors = err.response.data.error;
-        console.log(err.response.data.error, 'jajsajjlskslk')
-
         if (errors) {
             console.log("hsxhsxsxhbhb gsyxb")
             errors.forEach(error => { dispatch(setAlert(error.msg, 'danger')) });
@@ -104,6 +103,9 @@ export const login = ({ formData }) => async dispatch => {
     }
 }
 export const logout = () => dispatch => {
+    dispatch({
+        type: CLEAR_PROFILE
+    });
     dispatch({
         type: LOGOUT
     });

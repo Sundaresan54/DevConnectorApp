@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types';
-
+import { Spinner } from './Spinner'
 const Landing = ({ isAuthenticated }) => {
 
     if (isAuthenticated) {
